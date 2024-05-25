@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.dhairya.dhairtatask.Model.Product;
 import com.dhairya.dhairtatask.R;
 import com.dhairya.dhairtatask.utiles.ApiService;
+import com.dhairya.dhairtatask.utiles.RetrofitClient;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -45,7 +46,7 @@ public class Addpro extends AppCompatActivity {
 
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         builder.setView(dialogView);
-        builder.setTitle("Add Item");
+        builder.setTitle("Add Product");
         builder.setCancelable(true);
 
         final AlertDialog dialog = builder.create();
@@ -66,11 +67,7 @@ public class Addpro extends AppCompatActivity {
     }
 
     private void addItem(String title) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://dummyjson.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         ApiService apiService = retrofit.create(ApiService.class);
         Call<Void> call = apiService.addProduct(new Product(title));
         call.enqueue(new Callback<Void>() {
