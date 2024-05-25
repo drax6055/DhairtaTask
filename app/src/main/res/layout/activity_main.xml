@@ -18,7 +18,7 @@
         android:layout_height="48dp"
         android:hint="Search Products"
         android:inputType="text"
-        android:paddingStart="@dimen/_3sdp"
+        android:paddingStart="@dimen/_5sdp"
         android:drawableStart="@drawable/search"
         android:drawablePadding="@dimen/_3sdp"
         android:imeOptions="actionSearch"
