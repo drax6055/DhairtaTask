@@ -1,18 +1,26 @@
 package com.dhairya.dhairtatask.Activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dhairya.dhairtatask.Adapter.ReviewAdapter;
 import com.dhairya.dhairtatask.Model.Product;
+import com.dhairya.dhairtatask.Model.Review;
 import com.dhairya.dhairtatask.R;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class ProductDetailsActivity extends AppCompatActivity {
     private TextView title, description, price, category, brand, stock, rating;
     private ImageView thumbnail;
+    private RecyclerView reviewsRecyclerView;
+    private ReviewAdapter reviewAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +34,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         stock = findViewById(R.id.productStock);
         rating = findViewById(R.id.productRating);
         thumbnail = findViewById(R.id.productThumbnail);
+        reviewsRecyclerView = findViewById(R.id.reviewsRecyclerView);
 
         // Get the product object from the intent
         Product product = (Product) getIntent().getSerializableExtra("product");
@@ -40,6 +49,12 @@ public class ProductDetailsActivity extends AppCompatActivity {
             stock.setText(String.valueOf(product.getStock()));
             rating.setText(String.valueOf(product.getRating()));
             Picasso.get().load(product.getThumbnail()).into(thumbnail);
+
+            // Set up the reviews RecyclerView
+            List<Review> reviews = product.getReviews();
+            reviewAdapter = new ReviewAdapter(reviews);
+            reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            reviewsRecyclerView.setAdapter(reviewAdapter);
         }
     }
 }

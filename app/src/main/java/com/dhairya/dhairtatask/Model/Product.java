@@ -1,6 +1,7 @@
 package com.dhairya.dhairtatask.Model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Product implements Serializable {
     private int id;
@@ -12,6 +13,7 @@ public class Product implements Serializable {
     private String brand;
     private int stock;
     private double rating;
+    private List<Review> reviews;
 
     public int getId() {
         return id;
@@ -20,7 +22,13 @@ public class Product implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
+    public List<Review> getReviews() {
+        return reviews;
+    }
 
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
     public String getTitle() {
         return title;
     }
