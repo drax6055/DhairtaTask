@@ -53,21 +53,20 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Filter the list as the user types
                 String query = s.toString().trim().toLowerCase();
-                List<Product> filteredList = new ArrayList<>();
-                for (Product product : productList) {
-                    if (product.getTitle().toLowerCase().contains(query)) {
-                        filteredList.add(product);
-                    }
+                if (!query.isEmpty()) {
+                    searchProducts(query);
+                } else {
+                    productList.clear();
+                    adapter.notifyDataSetChanged();
                 }
-                adapter.setFilter(filteredList);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
+
 
         productList = new ArrayList<>();
         adapter = new ProductAdapter(this, productList);
@@ -111,6 +110,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ProductResponse> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Failed to load data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void searchProducts(String query) {
+        isLoading = true;
+        apiService.searchProducts(query).enqueue(new Callback<ProductResponse>() {
+            @Override
+            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    productList.clear();
+                    productList.addAll(response.body().getProducts());
+                    adapter.notifyDataSetChanged();
+                    isLoading = false;
+                } else {
+                    Toast.makeText(MainActivity.this, "Failed to load data", Toast.LENGTH_SHORT).show();
+                    isLoading = false;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Failed to load data", Toast.LENGTH_SHORT).show();
+                isLoading = false;
             }
         });
     }

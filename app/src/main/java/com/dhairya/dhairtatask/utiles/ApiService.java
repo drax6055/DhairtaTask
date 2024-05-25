@@ -16,4 +16,7 @@ public interface ApiService {
 
     @GET("products")
     Call<ProductResponse> getProducts(@Query("limit") int limit, @Query("skip") int skip);
+
+    @GET("products/search")
+    Call<ProductResponse> searchProducts(@Query("q") String query);
 }
