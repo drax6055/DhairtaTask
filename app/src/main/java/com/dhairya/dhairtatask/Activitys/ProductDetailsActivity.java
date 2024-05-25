@@ -5,16 +5,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dhairya.dhairtatask.Adapter.ImageSliderAdapter;
 import com.dhairya.dhairtatask.Adapter.ReviewAdapter;
 import com.dhairya.dhairtatask.Model.Product;
 import com.dhairya.dhairtatask.Model.Review;
 import com.dhairya.dhairtatask.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -43,7 +47,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         dotsIndicator = findViewById(R.id.dotsIndicator);
         reviewsRecyclerView = findViewById(R.id.reviewsRecyclerView);
-
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               startActivity(new Intent(getApplicationContext(), MainActivity.class));
+               finish();
+            }
+        });
         // Get the product object from the intent
         Product product = (Product) getIntent().getSerializableExtra("product");
 
