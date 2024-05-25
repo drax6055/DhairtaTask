@@ -1,5 +1,7 @@
 package com.dhairya.dhairtatask.Adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dhairya.dhairtatask.Activitys.ProductDetailsActivity;
 import com.dhairya.dhairtatask.Model.Product;
 import com.dhairya.dhairtatask.R;
 import com.squareup.picasso.Picasso;
@@ -17,8 +20,10 @@ import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
     private List<Product> productList;
+    private Context context;
 
-    public ProductAdapter(List<Product> productList) {
+    public ProductAdapter(Context context, List<Product> productList) {
+        this.context = context;
         this.productList = productList;
     }
 
@@ -35,6 +40,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.title.setText(product.getTitle());
         holder.price.setText(String.format("$%.2f", product.getPrice()));
         Picasso.get().load(product.getThumbnail()).into(holder.thumbnail);
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ProductDetailsActivity.class);
+            intent.putExtra("product", product);
+            context.startActivity(intent);
+        });
     }
 
     @Override
