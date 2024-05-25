@@ -3,11 +3,13 @@ package com.dhairya.dhairtatask.Activitys;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dhairya.dhairtatask.Adapter.ImageSliderAdapter;
 import com.dhairya.dhairtatask.Adapter.ReviewAdapter;
 import com.dhairya.dhairtatask.Model.Product;
 import com.dhairya.dhairtatask.Model.Review;
@@ -18,9 +20,11 @@ import java.util.List;
 
 public class ProductDetailsActivity extends AppCompatActivity {
     private TextView title, description, price, category, brand, stock, rating;
-    private ImageView thumbnail;
+    private ViewPager2 viewPager;
     private RecyclerView reviewsRecyclerView;
     private ReviewAdapter reviewAdapter;
+    private ImageSliderAdapter imageSliderAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +37,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         brand = findViewById(R.id.productBrand);
         stock = findViewById(R.id.productStock);
         rating = findViewById(R.id.productRating);
-        thumbnail = findViewById(R.id.productThumbnail);
+        viewPager = findViewById(R.id.viewPager);
         reviewsRecyclerView = findViewById(R.id.reviewsRecyclerView);
 
         // Get the product object from the intent
@@ -48,7 +52,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
             brand.setText(product.getBrand());
             stock.setText(String.valueOf(product.getStock()));
             rating.setText(String.valueOf(product.getRating()));
-            Picasso.get().load(product.getThumbnail()).into(thumbnail);
+
+            // Set up the image slider
+            List<String> imageUrls = product.getImages();
+            imageSliderAdapter = new ImageSliderAdapter(this, imageUrls);
+            viewPager.setAdapter(imageSliderAdapter);
 
             // Set up the reviews RecyclerView
             List<Review> reviews = product.getReviews();

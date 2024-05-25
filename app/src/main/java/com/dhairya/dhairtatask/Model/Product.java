@@ -14,6 +14,7 @@ public class Product implements Serializable {
     private int stock;
     private double rating;
     private List<Review> reviews;
+    private List<String> images;
 
     public int getId() {
         return id;
@@ -79,6 +80,14 @@ public class Product implements Serializable {
 
     public int getStock() {
         return stock;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
     public void setStock(int stock) {
