@@ -1,4 +1,4 @@
-package com.dhairya.dhairtatask.Activitys;
+package com.dhairya.dhairtatask.utiles;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

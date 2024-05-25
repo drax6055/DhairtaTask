@@ -1,4 +1,4 @@
-package com.dhairya.dhairtatask.Activitys;
+package com.dhairya.dhairtatask.Model;
 
 public class LoginResponse {
     private String token;
