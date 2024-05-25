@@ -19,4 +19,5 @@ public interface ApiService {
 
     @GET("products/search")
     Call<ProductResponse> searchProducts(@Query("q") String query);
+
 }
