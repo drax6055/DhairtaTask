@@ -15,8 +15,8 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.ImageViewHolder> {
-    private List<String> imageUrls;
     private Context context;
+    private List<String> imageUrls;
 
     public ImageSliderAdapter(Context context, List<String> imageUrls) {
         this.context = context;
@@ -33,7 +33,11 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         String imageUrl = imageUrls.get(position);
-        Picasso.get().load(imageUrl).into(holder.imageView);
+        Picasso.get()
+                .load(imageUrl)
+                .placeholder(R.drawable.ic_launcher_background) // Add a placeholder image
+                .error(R.drawable.ic_launcher_background) // Add an error image
+                .into(holder.imageView);
     }
 
     @Override
@@ -44,7 +48,7 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
     static class ImageViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
 
-        ImageViewHolder(@NonNull View itemView) {
+        ImageViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
         }
