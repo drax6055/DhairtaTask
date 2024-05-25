@@ -7,6 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dhairya.dhairtatask.Adapter.ProductAdapter;
@@ -31,11 +35,26 @@ public class MainActivity extends AppCompatActivity {
     private int currentPage = 1;
     private boolean isLoading = false;
     private ApiService apiService;
+    private EditText searchEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        searchEditText = findViewById(R.id.searchEditText);
+        searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    performSearch();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         productList = new ArrayList<>();
         adapter = new ProductAdapter(this, productList);
 
@@ -80,5 +99,20 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Failed to load data", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void performSearch() {
+        String query = searchEditText.getText().toString().trim();
+        if (!query.isEmpty()) {
+            List<Product> filteredList = new ArrayList<>();
+            for (Product product : productList) {
+                if (product.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(product);
+                }
+            }
+            adapter.setFilter(filteredList);
+        } else {
+            // If search query is empty, show the original list
+            adapter.setFilter(productList);
+        }
     }
 }

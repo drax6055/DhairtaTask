@@ -64,4 +64,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             thumbnail = itemView.findViewById(R.id.productThumbnail);
         }
     }
+    public void setFilter(List<Product> filteredList) {
+        productList = filteredList;
+        notifyDataSetChanged();
+    }
 }
