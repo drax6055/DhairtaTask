@@ -89,7 +89,6 @@ public class Login_activity extends AppCompatActivity {
         editor.clear();
         editor.apply();
         Toast.makeText(Login_activity.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
-        // Redirect to login activity
         startActivity(new Intent(getApplicationContext(), Login_activity.class));
         finish();
     }
