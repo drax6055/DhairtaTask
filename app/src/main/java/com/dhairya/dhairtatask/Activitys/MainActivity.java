@@ -2,6 +2,7 @@ package com.dhairya.dhairtatask.Activitys;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         productList = new ArrayList<>();
         adapter = new ProductAdapter(productList);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        binding.recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         binding.recyclerView.setAdapter(adapter);
 
         apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);

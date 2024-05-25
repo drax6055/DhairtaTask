@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="@dimen/_2sdp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -22,23 +22,23 @@
             <ImageView
                 android:id="@+id/productThumbnail"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_150sdp"
+                android:layout_height="@dimen/_100sdp"
                 android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/productTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_16sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textStyle="bold"
-                android:paddingTop="@dimen/_8sdp" />
+                android:paddingTop="@dimen/_2sdp" />
 
             <TextView
                 android:id="@+id/productPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_14sdp"
-                android:paddingTop="@dimen/_4sdp" />
+                android:textSize="@dimen/_10sdp"
+                android:paddingTop="@dimen/_2sdp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
