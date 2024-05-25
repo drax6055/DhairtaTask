@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -44,14 +46,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         searchEditText = findViewById(R.id.searchEditText);
-        searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    performSearch();
-                    return true;
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Filter the list as the user types
+                String query = s.toString().trim().toLowerCase();
+                List<Product> filteredList = new ArrayList<>();
+                for (Product product : productList) {
+                    if (product.getTitle().toLowerCase().contains(query)) {
+                        filteredList.add(product);
+                    }
                 }
-                return false;
+                adapter.setFilter(filteredList);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
 
@@ -99,20 +113,5 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Failed to load data", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-    private void performSearch() {
-        String query = searchEditText.getText().toString().trim();
-        if (!query.isEmpty()) {
-            List<Product> filteredList = new ArrayList<>();
-            for (Product product : productList) {
-                if (product.getTitle().toLowerCase().contains(query.toLowerCase())) {
-                    filteredList.add(product);
-                }
-            }
-            adapter.setFilter(filteredList);
-        } else {
-            // If search query is empty, show the original list
-            adapter.setFilter(productList);
-        }
     }
 }
