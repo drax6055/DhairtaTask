@@ -16,6 +16,9 @@ public class Product implements Serializable {
     private List<Review> reviews;
     private List<String> images;
 
+    public Product(String title) {
+    }
+
     public int getId() {
         return id;
     }

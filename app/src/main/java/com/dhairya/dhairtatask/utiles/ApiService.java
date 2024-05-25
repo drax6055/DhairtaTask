@@ -2,6 +2,7 @@ package com.dhairya.dhairtatask.utiles;
 
 import com.dhairya.dhairtatask.Model.LoginRequest;
 import com.dhairya.dhairtatask.Model.LoginResponse;
+import com.dhairya.dhairtatask.Model.Product;
 import com.dhairya.dhairtatask.Model.ProductResponse;
 
 import retrofit2.Call;
@@ -19,5 +20,8 @@ public interface ApiService {
 
     @GET("products/search")
     Call<ProductResponse> searchProducts(@Query("q") String query);
+
+    @POST("products/add")
+    Call<Void> addProduct(@Body Product product);
 
 }

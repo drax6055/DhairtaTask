@@ -6,13 +6,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
+import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dhairya.dhairtatask.Adapter.ProductAdapter;
@@ -88,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
                     loadProducts(currentPage);
                     isLoading = true;
                 }
+            }
+        });
+        binding.btnAddProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Addpro.class));
             }
         });
     }
