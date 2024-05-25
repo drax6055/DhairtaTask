@@ -4,30 +4,51 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp">
-
     <TextView
         android:id="@+id/reviewerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="name"
         android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/reviewRating"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp" />
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="match_parent"
+            android:src="@drawable/person"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/reviewRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4.2"
+                android:drawableStart="@drawable/one"
+                android:layout_marginTop="4dp" />
 
-    <TextView
-        android:id="@+id/reviewComment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp" />
+            <TextView
+                android:id="@+id/reviewComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="grate product"
+                android:layout_marginTop="4dp" />
+            <TextView
+                android:id="@+id/reviewDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"
+                android:text="Date"
+                android:textColor="#888888" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/reviewDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textSize="12sp"
-        android:textColor="#888888" />
+    </LinearLayout>
+
+
+
+
 </LinearLayout>
