@@ -47,8 +47,10 @@ public class Login_activity extends AppCompatActivity {
 
                 if (!username.isEmpty() && !password.isEmpty()) {
                     login(username, password);
-                } else {
-                    Toast.makeText(Login_activity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
+                } else if (username.isEmpty()){
+                    binding.layoutUsername.setError("Enter Username");
+                }else {
+                    binding.layoutPass.setError("Enter Password");
                 }
             }
         });
