@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dhairya.dhairtatask.Adapter.ImageSliderAdapter;
@@ -21,9 +22,11 @@ import java.util.List;
 public class ProductDetailsActivity extends AppCompatActivity {
     private TextView title, description, price, category, brand, stock, rating;
     private ViewPager2 viewPager;
+    private LinearLayout dotsIndicator;
     private RecyclerView reviewsRecyclerView;
     private ReviewAdapter reviewAdapter;
     private ImageSliderAdapter imageSliderAdapter;
+    private ImageView[] dots;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         stock = findViewById(R.id.productStock);
         rating = findViewById(R.id.productRating);
         viewPager = findViewById(R.id.viewPager);
+        dotsIndicator = findViewById(R.id.dotsIndicator);
         reviewsRecyclerView = findViewById(R.id.reviewsRecyclerView);
 
         // Get the product object from the intent
@@ -47,7 +51,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         if (product != null) {
             title.setText(product.getTitle());
             description.setText(product.getDescription());
-            price.setText("Price: "+ String.format("$%.2f", product.getPrice()));
+            price.setText("Price: " + String.format("$%.2f", product.getPrice()));
             category.setText("Category: " + product.getCategory());
             brand.setText("Brand: " + product.getBrand());
             stock.setText("Stock: " + String.valueOf(product.getStock()));
@@ -58,11 +62,46 @@ public class ProductDetailsActivity extends AppCompatActivity {
             imageSliderAdapter = new ImageSliderAdapter(this, imageUrls);
             viewPager.setAdapter(imageSliderAdapter);
 
+            // Set up the dot indicators
+            setupDotIndicators(imageUrls.size());
+            viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                @Override
+                public void onPageSelected(int position) {
+                    super.onPageSelected(position);
+                    updateDotIndicators(position);
+                }
+            });
+
             // Set up the reviews RecyclerView
             List<Review> reviews = product.getReviews();
             reviewAdapter = new ReviewAdapter(reviews);
             reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             reviewsRecyclerView.setAdapter(reviewAdapter);
+        }
+    }
+
+    private void setupDotIndicators(int count) {
+        dots = new ImageView[count];
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(8, 0, 8, 0);
+
+        for (int i = 0; i < count; i++) {
+            dots[i] = new ImageView(this);
+            dots[i].setImageDrawable(getDrawable(R.drawable.non_active_dot));
+            dots[i].setLayoutParams(params);
+            dotsIndicator.addView(dots[i]);
+        }
+
+        // Set the first dot as active
+        if (dots.length > 0) {
+            dots[0].setImageDrawable(getDrawable(R.drawable.active_dot));
+        }
+    }
+
+    private void updateDotIndicators(int position) {
+        for (int i = 0; i < dots.length; i++) {
+            dots[i].setImageDrawable(getDrawable(i == position ? R.drawable.active_dot : R.drawable.non_active_dot));
         }
     }
 }
