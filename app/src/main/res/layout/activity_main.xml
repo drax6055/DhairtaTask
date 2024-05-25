@@ -16,18 +16,23 @@
     <EditText
         android:id="@+id/searchEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:hint="Search Products"
         android:inputType="text"
+        android:paddingStart="@dimen/_3sdp"
+        android:drawableStart="@drawable/search"
+        android:drawablePadding="@dimen/_3sdp"
         android:imeOptions="actionSearch"
         android:maxLines="1"
-        android:layout_margin="8dp"/>
+        android:background="@drawable/btn_shape"
+        android:backgroundTint="#E6E6E6"
+        android:layout_margin="@dimen/_5sdp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/_15sdp"
+        android:padding="@dimen/_5sdp"
         android:clipToPadding="false"
         android:scrollbars="vertical" />
     </LinearLayout>
@@ -37,6 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/_10sdp"
+        android:src="@android:drawable/ic_input_add"
         app:fabSize="normal" />
 
 </RelativeLayout>

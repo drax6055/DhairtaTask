@@ -35,8 +35,8 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
         String imageUrl = imageUrls.get(position);
         Picasso.get()
                 .load(imageUrl)
-                .placeholder(R.drawable.ic_launcher_background) // Add a placeholder image
-                .error(R.drawable.ic_launcher_background) // Add an error image
+                .placeholder(R.drawable.img) // Add a placeholder image
+                .error(R.drawable.img) // Add an error image
                 .into(holder.imageView);
     }
 

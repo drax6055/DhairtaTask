@@ -47,10 +47,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
         if (product != null) {
             title.setText(product.getTitle());
             description.setText(product.getDescription());
-            price.setText(String.format("$%.2f", product.getPrice()));
-            category.setText(product.getCategory());
-            brand.setText(product.getBrand());
-            stock.setText(String.valueOf(product.getStock()));
+            price.setText("Price: "+ String.format("$%.2f", product.getPrice()));
+            category.setText("Category: " + product.getCategory());
+            brand.setText("Brand: " + product.getBrand());
+            stock.setText("Stock: " + String.valueOf(product.getStock()));
             rating.setText(String.valueOf(product.getRating()));
 
             // Set up the image slider
